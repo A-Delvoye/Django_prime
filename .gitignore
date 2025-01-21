@@ -1,3 +1,6 @@
 __pycache__
 .venv
-
+AssurAimant/.env
+AssurAimant/authentification/migrations
+AssurAimant/prime_assurance/migrations
+db.sqlite3
