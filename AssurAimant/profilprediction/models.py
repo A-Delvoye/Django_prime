@@ -14,12 +14,12 @@ class ProfilePrediction(models.Model):
         ('Southwest', 'Southwest'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    age = models.PositiveIntegerField()
-    sex = models.CharField(max_length=10, choices=SEX_CHOICES)
-    bmi = models.FloatField()
-    children = models.PositiveIntegerField()
-    smoker = models.BooleanField()
-    region = models.CharField(max_length=20, choices=REGION_CHOICES)
+    age = models.PositiveIntegerField(default = 1)
+    sex = models.CharField(max_length=10, choices=SEX_CHOICES, null=True)
+    bmi = models.FloatField(default = 0)
+    children = models.PositiveIntegerField(null=True)
+    smoker = models.BooleanField(default = False)
+    region = models.CharField(max_length=20, choices=REGION_CHOICES, null=True)
     profile_updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
