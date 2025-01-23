@@ -1,12 +1,21 @@
 {% extends "base.html" %}
-
+{% load tailwind_tags %}
 {% block title %}Login{% endblock %}
+{% tailwind_css %}
 
 {% block content %}
-<h2>Log In</h2>
+<body>
+<h1 class="text-3xl font-bold text-red-500">Log In</h1>
+</body>
 <form method="post">
   {% csrf_token %}
   {{ form }}
   <button type="submit">Log In</button>
 </form>
+
+  <footer>
+    <p>&copy; 2025 Mon Site Web</p>
+  </footer>
+
+  
 {% endblock %}
