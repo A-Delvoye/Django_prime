@@ -19,21 +19,21 @@ class ProfilePredictionForm(forms.Form):
         min_value=18,
         max_value=120,
         help_text="Entrez un âge entre 18 et 120 ans.",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Âge'}),
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Âge', 'id': 'age'}),
     )
     bmi = forms.FloatField(
         label="BMI",
         min_value=10,
         max_value=60,
         help_text="Entrez un BMI entre 10 et 60.",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'BMI'}),
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'BMI', 'id': 'bmi'}),
     )
     children = forms.IntegerField(
         label="Nombre d'enfants",
         min_value=0,
         max_value=10,
         help_text="Entrez un nombre d'enfants entre 0 et 20.",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Nombre d\'enfants'}),
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Nombre d\'enfants', 'id': 'children'}),
     )
     sex = forms.ChoiceField(
         label="Sexe",
@@ -48,7 +48,7 @@ class ProfilePredictionForm(forms.Form):
     region = forms.ChoiceField(
         label="Région",
         choices=REGION_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-select'}),
+        widget=forms.Select(attrs={'class': 'form-select', 'id': 'region'}),
     )
 
     def clean_age(self):
