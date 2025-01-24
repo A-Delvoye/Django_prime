@@ -13,7 +13,6 @@ from .utils import load_model
 MODEL_PATH = "profilprediction/templates/profilprediction/ElasticNet_model_fit_2.pkl"
 insurance_model = load_model(MODEL_PATH)
 
-
 # Gestion du profil utilisateur
 @login_required
 def profileprediction(request):
@@ -124,25 +123,46 @@ def prediction_page(request):
     # Charge le profil utilisateur existant
     try:
         profile = ProfilePrediction.objects.get(user=request.user)
+        form = ProfilePredictionForm(initial={
+            'age': profile.age,
+            'sex': profile.sex,
+            'bmi': profile.bmi,
+            'children': profile.children,
+            'smoker': profile.smoker,
+            'region': profile.region,
+        })
     except ProfilePrediction.DoesNotExist:
         return redirect('profileprediction')  # Redirige vers le formulaire de profil si pas de profil
 
     if request.method == 'POST':
         # Simule et enregistre une prédiction
-        prime = calculate_prime(
-            age=profile.age,
-            bmi=profile.bmi,
-            sex = profile.sex,
-            children=profile.children,
-            smoker=profile.smoker,
-            region=profile.region,
-        )
-        # Enregistre la prédiction
-        Prediction.objects.create(profile=profile, prime=prime)
+        form = ProfilePredictionForm(request.POST)
+
+        if form.is_valid():
+            raw_data = {
+                'age': form.cleaned_data["age"],
+                'bmi': form.cleaned_data["bmi"],
+                'children': form.cleaned_data["children"],
+                'sex': form.cleaned_data["sex"],
+                'smoker': form.cleaned_data["smoker"],
+                'region': form.cleaned_data["region"]
+            }
+            age, bmi, sex, children, smoker, region = transform_input_data(raw_data)
+
+            prime = calculate_prime(
+                age = age,
+                bmi = bmi,
+                sex = sex,
+                children = children,
+                smoker = smoker,
+                region = region,
+            )
+            # Enregistre la prédiction
+            Prediction.objects.create(profile=profile, prime=prime)
 
         return render(request, 'profilprediction/prime_resultat.html', {'prime': prime})
 
-    return render(request, 'profilprediction/prime_simulation.html', {'profile': profile})
+    return render(request, 'profilprediction/prime_simulation2.html', {'form': form})
 
 @login_required
 def prediction_history(request):
@@ -154,3 +174,23 @@ def prediction_history(request):
     predictions = profile.predictions.all()  # Récupère toutes les prédictions associées au profil
     return render(request, 'profilprediction/historique.html', {'profile': profile, 'predictions': predictions})
 
+
+
+def transform_input_data(data):
+    """
+    Transforme les données d'entrée pour qu'elles soient compatibles avec la fonction calculate_prime.
+    """
+    # Extraction des valeurs et conversion dans le bon type
+    age = int(data['age'])  # Convertir en entier
+    bmi = float(data['bmi'])  # Convertir en float
+    children = int(data['children'])  # Convertir en entier
+    sex = data['sex'].capitalize()  # Normaliser (majuscule initiale)
+    smoker = data['smoker'].capitalize() == 'True'  # Normaliser et convertir en booléen
+    region = data['region'].capitalize()  # Normaliser (majuscule initiale)
+
+    # Mapping des valeurs
+    smoker_mapping = {True: 0, False: 1}
+    smoker = smoker_mapping[smoker]
+
+    # Retourner les valeurs transformées
+    return age, bmi, sex, children, smoker, region
