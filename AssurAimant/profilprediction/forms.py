@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django import forms
 
 class ProfilePredictionForm(forms.Form):
-
     SEX_CHOICES = [
         ('Male', 'Male'),
         ('Female', 'Female'),
@@ -42,7 +41,7 @@ class ProfilePredictionForm(forms.Form):
     )
     smoker = forms.ChoiceField(
         label="Fumeur",
-        choices=[('yes', 'Yes'), ('no', 'No')],
+        choices=[('True', 'Yes'), ('False', 'No')],
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
     region = forms.ChoiceField(

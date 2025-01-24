@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Simulation de la Prime</h1>
+<p>Bonjour {{ profile.user.username }}, voici les détails de votre profil :</p>
+<ul>
+    <li>Âge : {{ profile.age }}</li>
+    <li>Sexe : {{ profile.sex }}</li>
+    <li>BMI : {{ profile.bmi }}</li>
+    <li>Nombre d'enfants : {{ profile.children }}</li>
+    <li>Fumeur : {{ profile.smoker }}</li>
+    <li>Région : {{ profile.region }}</li>
+</ul>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Calculer la prime</button>
+</form>
+{% endblock %}

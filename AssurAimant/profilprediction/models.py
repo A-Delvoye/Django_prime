@@ -24,3 +24,11 @@ class ProfilePrediction(models.Model):
 
     def __str__(self):
         return f"{self.user}'s Profile"
+
+class Prediction(models.Model):
+    profile = models.ForeignKey(ProfilePrediction, on_delete=models.CASCADE, related_name="predictions")
+    prime = models.FloatField()  # La prime calculée
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Prediction for {self.profile.user.username} - {self.prime}"
