@@ -141,3 +141,10 @@ INTERNAL_IPS = [
 ]
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Exemple pour Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wael.bensoltana@gmail.com'  # Remplacez par votre adresse email
+#EMAIL_HOST_PASSWORD = ''# Remplacez par votre mot de passe
