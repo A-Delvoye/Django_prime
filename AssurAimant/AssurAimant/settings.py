@@ -156,3 +156,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'wael.bensoltana@gmail.com'  # Remplacez par votre adresse email
 #EMAIL_HOST_PASSWORD = ''# Remplacez par votre mot de passe
+AUTH_USER_MODEL = 'accounts.CustomUser'
