@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% block title %}WAD-IA Solutions{% endblock %}
-
 {% block content %}
 
 {% load static %}
@@ -28,13 +26,13 @@
 
 </style>
 
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assur'Innov - Solutions IA</title>
     <style>
         body {
+            display: block;
             background-color: #121212; /* Dark background */
             color: white; /* Default text color */
             font-family: Arial, sans-serif;
@@ -72,6 +70,7 @@
             text-decoration: underline;
         }
         section {
+            display: block;
             margin: 20px;
             padding: 20px;
             background: #1c1c1c; /* Slightly lighter background for sections */
@@ -80,9 +79,9 @@
         }
     </style>
 </head>
+<div class="flex flex-col space-y-6">
 <body>
     <h1>Bienvenue chez WAD-IA Solutions</h1>
-    
     <section>
         <h2>Nos Solutions</h2>
         <p>
@@ -119,7 +118,7 @@
             Nous travaillons main dans la main avec nos partenaires pour bâtir une industrie plus transparente, plus efficace et tournée vers l’avenir.
         </p>
     </section>
+</div>
 </body>
-</html>
 
 {% endblock %}
