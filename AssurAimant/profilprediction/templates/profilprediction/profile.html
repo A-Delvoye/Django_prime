@@ -1,9 +1,6 @@
+{% extends 'base.html' %}
 {% load tailwind_tags %}
-<!DOCTYPE html>
-<html lang="fr-FR">
-<head>
-    <title>Profile Prediction</title>
-    {% tailwind_css %}</head>
+{% block content %}
 <body>
 <div class="container">
     <h1 class="text-3xl font-bold text-red-400">Profile Prediction</h1>
@@ -82,12 +79,12 @@
         {% endif %}
     </div><p></p>
     <div class="flex justify-center space-x-4 mt-12">
-        <button type="submit" class="btn btn-primary bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Save</button>
-        <button type="submit" name="cancel" value="true" formnovalidate class="btn btn-primary bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">
+        <button type="submit">Save</button>
+        <button type="submit" name="cancel" value="true" formnovalidate>
             Annuler
         </button>
     </div>
 </form>
 </div>
 </body>
-</html>
+{% endblock content %}

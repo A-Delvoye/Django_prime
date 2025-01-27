@@ -1,18 +1,125 @@
 {% extends "base.html" %}
 
-{% block title %}Page d'accueil{% endblock %}
+{% block title %}WAD-IA Solutions{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<h1> Bienvenue chez Assur'aimant </h1>
-Hi {{ user.username }}!
 
-<form action="{% url 'logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-{% endif %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'image/background05.webp' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+    }
+
+    body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 1); /* Couleur blanche semi-transparente (ajuster l'opacité ici) */
+        pointer-events: none; /* Permet de cliquer à travers la superposition */
+        z-index: -1; /* Assure que la superposition est derrière le contenu */
+    }
+
+</style>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assur'Innov - Solutions IA</title>
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: white; /* Default text color */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 2.5rem; /* Largest font for main heading */
+            color: #00aaff; /* Light blue for standout titles */
+            text-align: center;
+            margin-top: 20px;
+        }
+        h2 {
+            font-size: 2rem; /* Slightly smaller than h1 */
+            color: #00aaff;
+            text-align: center;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 1.2rem; /* Standard readable size for text */
+            margin: 10px 20px;
+        }
+        ul {
+            font-size: 1.2rem; /* Matching size for list text */
+            margin: 10px 20px;
+            list-style-type: square;
+        }
+        a {
+            color: #00aaff;
+            font-size: 1.2rem; /* Keep links consistent with text */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: #1c1c1c; /* Slightly lighter background for sections */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue chez WAD-IA Solutions</h1>
+    
+    <section>
+        <h2>Nos Solutions</h2>
+        <p>
+            <strong>1. Analyse prédictive pour une meilleure gestion des risques</strong><br>
+            Grâce à des algorithmes avancés, nous aidons les assureurs à anticiper les risques, identifier les comportements à risque et ajuster les primes d’assurance en temps réel.
+        </p>
+        <p>
+            <strong>2. Automatisation des réclamations</strong><br>
+            Notre IA permet de traiter les demandes d’indemnisation en quelques minutes, réduisant ainsi les délais de traitement et les coûts opérationnels.
+        </p>
+        <p>
+            <strong>3. Personnalisation des offres</strong><br>
+            Grâce à une analyse intelligente des données clients, nous aidons les assureurs à proposer des produits et des services adaptés aux besoins spécifiques de chaque assuré.
+        </p>
+        <p>
+            <strong>4. Détection de fraude en temps réel</strong><br>
+            Notre solution utilise le machine learning pour identifier des schémas suspects dans les réclamations, permettant ainsi de prévenir les fraudes avant qu’elles ne surviennent.
+        </p>
+    </section>
+
+    <section>
+        <h2>Pourquoi choisir WAD-IA Solutions ?</h2>
+        <ul>
+            <li><strong>Gains de productivité</strong> : Réduisez vos coûts grâce à l’automatisation et à une gestion optimisée des processus.</li>
+            <li><strong>Amélioration de l’expérience client</strong> : Offrez une relation fluide et rapide à vos clients, de la souscription à l’indemnisation.</li>
+            <li><strong>Conformité et sécurité des données</strong> : Nos outils respectent les normes de protection des données pour garantir la confidentialité des informations sensibles.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Notre Vision</h2>
+        <p>
+            Chez Assur'Innov, nous croyons en un futur où l’assurance n’est plus perçue comme un processus complexe, mais comme un service fluide et accessible, grâce à l’intelligence artificielle. 
+            Nous travaillons main dans la main avec nos partenaires pour bâtir une industrie plus transparente, plus efficace et tournée vers l’avenir.
+        </p>
+    </section>
+</body>
+</html>
+
 {% endblock %}

@@ -7,12 +7,13 @@ from django.shortcuts import render, redirect
 from .forms import ProfilePredictionForm
 from .models import ProfilePrediction, Prediction
 
+from django.core.mail import EmailMessage
+
 from .utils import load_model
 
 # Chargez le modèle au démarrage
 MODEL_PATH = "profilprediction/templates/profilprediction/ElasticNet_model_fit_2.pkl"
 insurance_model = load_model(MODEL_PATH)
-
 
 # Gestion du profil utilisateur
 @login_required
@@ -26,8 +27,6 @@ def profileprediction(request):
         form = ProfilePredictionForm(request.POST)
         print(request.POST)
         if form.is_valid():
-            print("2311")
-            #form.save(commit=False)
             print(form.cleaned_data)
             user_profile, created = ProfilePrediction.objects.get_or_create(
                 user = request.user,
@@ -124,25 +123,70 @@ def prediction_page(request):
     # Charge le profil utilisateur existant
     try:
         profile = ProfilePrediction.objects.get(user=request.user)
+        form = ProfilePredictionForm(initial={
+            'age': profile.age,
+            'sex': profile.sex,
+            'bmi': profile.bmi,
+            'children': profile.children,
+            'smoker': profile.smoker,
+            'region': profile.region,
+        })
     except ProfilePrediction.DoesNotExist:
         return redirect('profileprediction')  # Redirige vers le formulaire de profil si pas de profil
 
     if request.method == 'POST':
         # Simule et enregistre une prédiction
-        prime = calculate_prime(
-            age=profile.age,
-            bmi=profile.bmi,
-            sex = profile.sex,
-            children=profile.children,
-            smoker=profile.smoker,
-            region=profile.region,
-        )
-        # Enregistre la prédiction
-        Prediction.objects.create(profile=profile, prime=prime)
+        form = ProfilePredictionForm(request.POST)
 
-        return render(request, 'profilprediction/prime_resultat.html', {'prime': prime})
+        if form.is_valid():
+            raw_data = {
+                'age': form.cleaned_data["age"],
+                'bmi': form.cleaned_data["bmi"],
+                'children': form.cleaned_data["children"],
+                'sex': form.cleaned_data["sex"],
+                'smoker': form.cleaned_data["smoker"],
+                'region': form.cleaned_data["region"]
+            }
+            age, bmi, sex, children, smoker, region = transform_input_data(raw_data)
 
-    return render(request, 'profilprediction/prime_simulation.html', {'profile': profile})
+            prime = calculate_prime(
+                age = age,
+                bmi = bmi,
+                sex = sex,
+                children = children,
+                smoker = smoker,
+                region = region,
+            )
+            # Enregistre la prédiction
+            Prediction.objects.create(profile=profile,
+                                      prime=prime,
+                                      age = age,
+                                      bmi = bmi,
+                                      sex = sex,
+                                      children = children,
+                                      smoker = smoker,
+                                      region = region)
+
+            if "generer" in request.POST:
+                pdf_path = generate_pdf(age, bmi, sex, children, smoker, region, prime)
+                return FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+
+            elif "envoyer e-mail" in request.POST:
+                print(request.POST)
+                user = request.user
+                email = user.email  # "destinataire@gmail.com"
+                print(email)
+                send_email_with_pdf(email, age, bmi, sex, children, smoker, region, prime)
+                #generate_mail_link(request)
+
+            else:
+                # Calculer la prime et afficher les résultats
+                return render(request, 'profilprediction/prime_resultat.html', {
+                    'form': form,
+                    'prime': prime,
+                })
+        #return render(request, 'profilprediction/prime_resultat.html', {'prime': prime})
+    return render(request, 'profilprediction/prime_simulation.html', {'form': form})
 
 @login_required
 def prediction_history(request):
@@ -154,3 +198,90 @@ def prediction_history(request):
     predictions = profile.predictions.all()  # Récupère toutes les prédictions associées au profil
     return render(request, 'profilprediction/historique.html', {'profile': profile, 'predictions': predictions})
 
+
+
+def transform_input_data(data):
+    """
+    Transforme les données d'entrée pour qu'elles soient compatibles avec la fonction calculate_prime.
+    """
+    # Extraction des valeurs et conversion dans le bon type
+    age = int(data['age'])  # Convertir en entier
+    bmi = float(data['bmi'])  # Convertir en float
+    children = int(data['children'])  # Convertir en entier
+    sex = data['sex'].capitalize()  # Normaliser (majuscule initiale)
+    smoker = data['smoker'].capitalize() == 'True'  # Normaliser et convertir en booléen
+    region = data['region'].capitalize()  # Normaliser (majuscule initiale)
+
+    # Mapping des valeurs
+    smoker_mapping = {True: 0, False: 1}
+    smoker = smoker_mapping[smoker]
+
+    # Retourner les valeurs transformées
+    return age, bmi, sex, children, smoker, region
+
+from fpdf import FPDF
+from django.http import FileResponse
+import os
+
+def generate_pdf(age, bmi, sex, children, smoker, region, prime):
+    """
+    Génère un fichier PDF avec les détails de la simulation.
+    """
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    # Ajouter un titre
+    pdf.set_font("Arial", style="B", size=16)
+    pdf.cell(200, 10, txt="Simulation de Prime d'Assurance", ln=True, align='C')
+    pdf.ln(10)
+
+    # Ajouter les détails
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt=f"Âge: {age}", ln=True)
+    pdf.cell(200, 10, txt=f"Indice de Masse Corporelle (BMI): {bmi}", ln=True)
+    pdf.cell(200, 10, txt=f"Sexe: {sex}", ln=True)
+    pdf.cell(200, 10, txt=f"Nombre d'enfants: {children}", ln=True)
+    pdf.cell(200, 10, txt=f"Fumeur: {'Oui' if smoker == 'yes' else 'Non'}", ln=True)
+    pdf.cell(200, 10, txt=f"Région: {region}", ln=True)
+    pdf.cell(200, 10, txt=f"Prime estimée: {prime:.2f} euros", ln=True)
+
+    # Sauvegarder le PDF
+    pdf_file_path = "simulation_prime.pdf"
+    pdf.output(pdf_file_path)
+    return pdf_file_path
+
+
+def view_pdf(request, age, bmi, sex, children, smoker, region):
+    """
+    Génère et retourne un PDF pour la prévisualisation.
+    """
+    # Calculer la prime
+    prime = calculate_prime(age, bmi, sex, children, smoker, region)
+
+    # Générer le PDF
+    pdf_path = generate_pdf(age, bmi, sex, children, smoker, region, prime)
+
+    # Retourner le PDF pour téléchargement
+    return FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+
+
+def send_email_with_pdf(to_email, age, bmi, sex, children, smoker, region, prime):
+    """
+    Envoie un e-mail avec le fichier PDF de simulation en pièce jointe.
+    """
+        # Générer le PDF
+    pdf_path = generate_pdf(age, bmi, sex, children, smoker, region, prime)
+    print("eeedr",to_email)
+    # Créer l'e-mail
+    email = EmailMessage(
+        subject="Simulation de Prime d'Assurance",
+        body="Veuillez trouver ci-joint le fichier PDF de votre simulation de prime d'assurance.",
+        to=[to_email],
+    )
+    print(email)
+    # Attacher le fichier PDF
+    email.attach_file(pdf_path)
+
+    # Envoyer l'e-mail
+    email.send()

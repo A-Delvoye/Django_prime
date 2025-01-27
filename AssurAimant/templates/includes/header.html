@@ -1,14 +1,72 @@
-<header>
+{% comment %} <header>
   <nav>
+    <ul class= "test">
+      <li class = "inline"><a class= "button" href="/profile">Page Profil</a></li>
+      <li class = "inline"><a href="/accounts/signup">Page d'inscription</a></li>
+      <li class = "inline"><a href="/login">Page d'authentification</a></li>
+      <li class = "inline"><a href="/predict">Page de prédiction</a></li>
+      <li class = "inline"><a href="/appointement">Page de rendez-vous</a></li>
+      <li class = "inline"><a href="/docs">Documentation</a></li>
     <ul>
       <li><a href="/profil">Page Profil</a></li>
       <li><a href="/accounts/signup">Page d'inscription</a></li>
       <li><a href="/login">Page d'authentification</a></li>
-      <li><a href="/profil">Page de prédiction</a></li>
-      <li><a href="/profil/prediction/">Page de prédiction 2</a></li>
-      <li><a href="/profil/prediction/history/">Page de prédiction 3</a></li>
+      <li><a href="/profil/prediction/">Page de Simulation de prime</a></li>
+      <li><a href="/profil/prediction/history/">Historique des simulations de primes</a></li>
       <li><a href="/appointement">Page de rendez-vous</a></li>
       <li><a href="/docs">Documentation</a></li>
     </ul>
   </nav>
+</header> {% endcomment %}
+
+<header class="bg-gray-900 text-white body-font">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    {% comment %} <a class="flex title-font font-medium items-center hover:text-gray-300"> {% endcomment %}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <span class="ml-3 text-xl">WAD-IA Solutions</span>
+    </a>
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+      <a class="mr-5 text-lg font-bold hover:text-gray-400" href="">Accueil</a>
+      {% comment %} <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/accounts/signup">Inscription</a> {% endcomment %}
+      {% comment %} <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/login">Authentification</a> {% endcomment %}
+      {% comment %} <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/">Profil</a>
+      <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/">Page de Simulation de prime</a>
+      <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/history/">Historique des simulations de prime</a> {% endcomment %}
+
+    </nav>
+    {% if user.is_authenticated %}
+    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/">Page de Simulation de prime</a>
+    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/history/">Historique des simulations de prime</a>
+    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/">{{ user.username }}</a>
+    {% comment %} <a>{{ user.username }}</a> {% endcomment %}
+    {% comment %} <button class="inline-flex items-center bg-red-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+      Log Out
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button> {% endcomment %}
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="inline-flex items-center bg-red-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+          Log Out
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+      </button>
+  </form>  
+    {% else %}
+    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/accounts/signup">Inscription</a>
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <button type="submit" class="inline-flex items-center bg-red-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+          Log In
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+      </button>
+  </form>  
+    {% endif %}
+  </div>
 </header>

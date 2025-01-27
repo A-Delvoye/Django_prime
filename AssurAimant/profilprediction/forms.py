@@ -1,17 +1,19 @@
 from django.core.exceptions import ValidationError
 from django import forms
 
+SEX_CHOICES = [
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+]
+REGION_CHOICES = [
+    ('Northeast', 'Northeast'),
+    ('Northwest', 'Northwest'),
+    ('Southeast', 'Southeast'),
+    ('Southwest', 'Southwest'),
+]
+
 class ProfilePredictionForm(forms.Form):
-    SEX_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-    ]
-    REGION_CHOICES = [
-        ('Northeast', 'Northeast'),
-        ('Northwest', 'Northwest'),
-        ('Southeast', 'Southeast'),
-        ('Southwest', 'Southwest'),
-    ]
+
 
     age = forms.IntegerField(
         label="Âge",
