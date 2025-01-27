@@ -16,6 +16,7 @@ import os
 from django.conf.global_settings import INTERNAL_IPS
 from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,8 +29,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =  os.getenv('DEBUG', 'True') == 'True'
-
-ALLOWED_HOSTS = []
+print(f"DEBUG_MOD : {DEBUG}")
+print(os.getenv('DEBUG'))
+print(100*'*')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
