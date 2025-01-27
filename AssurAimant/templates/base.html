@@ -7,6 +7,8 @@
   <meta charset="utf-8">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
   {% tailwind_css %}
+
+  <link rel='stylesheet' href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
@@ -15,6 +17,7 @@
     {% block content %}
     {% endblock %}
   </main>
+  {% include 'includes/footer.html' %}
 </body>
 
 </html>

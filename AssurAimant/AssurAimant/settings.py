@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'tailwind',
-    'theme_antoine',  
+    'tailwind', 
+    'theme', 
     'django_browser_reload',  
     'authentification',   # TO DELETE
     'prime_assurance',
@@ -137,9 +137,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/" 
 LOGOUT_REDIRECT_URL = "/" 
-TAILWIND_APP_NAME = "theme_antoine"
+TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 
 ]
-NPM_BIN_PATH = '/usr/local/bin/npm'
+NPM_BIN_PATH = '/usr/bin/npm'
