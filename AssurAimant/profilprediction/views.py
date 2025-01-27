@@ -181,7 +181,7 @@ def prediction_page(request):
 
             else:
                 # Calculer la prime et afficher les résultats
-                return render(request, 'profilprediction/prime_resultat.html', {
+                return render(request, 'profilprediction/prime_simulation.html', {
                     'form': form,
                     'prime': prime,
                 })
