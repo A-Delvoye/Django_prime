@@ -21,11 +21,11 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("accounts/", include("accounts.urls")), 
+    path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('', include("django.contrib.auth.urls")),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),  #page d'accueil
     path("__reload__/", include("django_browser_reload.urls")),
     path("team/", views.team_view, name='team'),
-    
+    path("profil/", include("profilprediction.urls")),
 ]

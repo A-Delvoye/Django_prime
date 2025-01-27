@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
+
+from django.conf.global_settings import INTERNAL_IPS
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',  # Antoine - Systeme d'identification 02  (native)
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -47,7 +49,7 @@ INSTALLED_APPS = [
     'prime_assurance',
     'signup',  # Antoine -  Systeme d'identification 01
     'accounts', # Antoine - User inscription
-
+    'profilprediction',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +125,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+#APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -143,3 +145,11 @@ INTERNAL_IPS = [
 
 ]
 NPM_BIN_PATH = '/usr/bin/npm'
+#NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Exemple pour Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wael.bensoltana@gmail.com'  # Remplacez par votre adresse email
+#EMAIL_HOST_PASSWORD = ''# Remplacez par votre mot de passe

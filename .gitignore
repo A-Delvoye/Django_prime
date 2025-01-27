@@ -4,3 +4,9 @@ AssurAimant/.env
 AssurAimant/authentification/migrations
 AssurAimant/prime_assurance/migrations
 db.sqlite3
+AssurAimant/node_modules/
+AssurAimant/package-lock.json
+AssurAimant/package.json
+AssurAimant/theme/
+AssurAimant/profilprediction/migrations
+

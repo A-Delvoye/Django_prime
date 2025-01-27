@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Historique des Prédictions</h1>
+<p>Voici l'historique des primes calculées pour {{ profile.user.username }} :</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Prime (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prediction in predictions %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ prediction.date_created }}</td>
+            <td>{{ prediction.prime }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune prédiction trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'prediction_page' %}" class="btn btn-secondary">Nouvelle Simulation</a>
+{% endblock %}
