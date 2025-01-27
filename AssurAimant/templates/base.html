@@ -11,12 +11,14 @@
   <link rel='stylesheet' href="{% static 'css/styles.css' %}">
 </head>
 
-<body>
+<body >
     {% include 'includes/header.html' %}
-  <main>
+  <main class="flex items-center justify-center space-y-6 mt-12">
+    <p><p>
     {% block content %}
     {% endblock %}
   </main>
+  <p><p>
   {% include 'includes/footer.html' %}
 </body>
 
