@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
+
+from django.conf.global_settings import INTERNAL_IPS
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,17 +36,17 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',  # Antoine - Systeme d'identification 02  (native)
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'authentification',
-    'prime_assurance',
     'signup',  # Antoine -  Systeme d'identification 01
     'accounts', # Antoine - User inscription
-
+    'authentification',
+    'tailwind',
+    'theme',
+    'profilprediction',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +121,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+#APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -130,5 +132,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/" 
-LOGOUT_REDIRECT_URL = "/" 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+TAILWIND_APP_NAME ='theme'
+INTERNAL_IPS = [
+    "127.0.0.1"
+]
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
