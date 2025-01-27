@@ -35,7 +35,7 @@
     <div class="text-center">
       <img class="w-24 h-24 rounded-full mx-auto shadow" src="{% static 'image/team/david_finalresize.jpeg' %}" alt="David the SCOTT" />
       <div class="flex flex-col justify-center mt-4">
-        <p class="text-lg font-bold">David the SCOTT</p>
+        <p class="text-lg font-bold">David</p>
         <p class="mb-4 text-xs text-gray-800">Ressources Humaines</p>
         <p class="text-sm tracking-wide text-gray-800">
           David veille au bien-être de notre équipe et gère les talents avec passion.
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<!-- Section pour les utilisateurs connectés -->
+{% comment %} <!-- Section pour les utilisateurs connectés -->
 {% if user.is_authenticated %}
 <div class="mt-10 text-center">
   <h2 class="text-2xl font-bold text-green-500">Bienvenue chez Assur'aimant</h2>
@@ -56,6 +56,6 @@
   <p class="text-lg">Vous n'êtes pas connecté.</p>
   <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Se connecter</a>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
 
 {% endblock %}
