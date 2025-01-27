@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'profilprediction',
+    'prime'
 ]
 
 MIDDLEWARE = [
