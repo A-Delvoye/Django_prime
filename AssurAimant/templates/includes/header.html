@@ -8,8 +8,10 @@
       <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/">Accueil</a>
     </nav>
     {% if user.is_authenticated %}
+    
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/">Page de Simulation de prime</a>
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/history/">Historique des simulations de prime</a>
+    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/dashboard/">Centre Technique</a>
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/">{{ user.username }}</a>
 
     <form method="POST" action="{% url 'logout' %}">
