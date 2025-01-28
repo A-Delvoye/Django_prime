@@ -3,54 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block content %}
-{% comment %} <form method="post">
-  {% csrf_token %}
-  <label for="username">Nom d'utilisateur :</label>
-  <input type="text" id="username" name="username" maxlength="150" required
-         pattern="[a-zA-Z0-9@.+_-]+">
-  
-  <label for="email">Adresse e-mail :</label>
-  <input type="email" id="email" name="email" required>
-  
-  <label for="first_name">Prénom :</label>
-  <input type="text" id="first_name" name="first_name">
-  
-  <label for="last_name">Nom de famille :</label>
-  <input type="text" id="last_name" name="last_name">
-  
-  <label for="password">Mot de passe :</label>
-  <input type="password" id="password" name="password" required minlength="8">
-  <div id="password-requirements" class="hidden">
-    <ul>
-      <li>Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.</li>
-      <li>Votre mot de passe doit contenir au minimum 8 caractères.</li>
-      <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
-      <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
-    </ul>
-  </div>
-  
-  <label for="password_confirm">Confirmation du mot de passe :</label>
-  <input type="password" id="password_confirm" name="password_confirm" required>
-  
-  <button type="submit">Créer un compte</button>
-</form>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const passwordField = document.getElementById('password');
-    const requirements = document.getElementById('password-requirements');
-
-    passwordField.addEventListener('focus', function () {
-      requirements.classList.remove('hidden'); // Affiche les règles au focus
-    });
-
-    passwordField.addEventListener('blur', function () {
-      if (!passwordField.value) {
-        requirements.classList.add('hidden'); // Cache si le champ est vide
-      }
-    });
-  });
-</script> {% endcomment %}
  <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="bg-white p-8 rounded shadow-lg w-full max-w-sm">
     <h1 class="text-3xl font-bold text-center text-blue-200 mb-6">Inscription</h1>
