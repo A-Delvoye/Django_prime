@@ -19,6 +19,10 @@ insurance_model = load_model(MODEL_PATH)
 @login_required
 def profileprediction(request):
 
+    """
+    profileprediction: Cette fonction permet de charger le formulaire de prédiction et se rediriger
+
+    """
     if request.method == 'POST':
 
         if 'cancel' in request.POST:
@@ -57,10 +61,6 @@ def profileprediction(request):
             form = ProfilePredictionForm()
 
     return render(request, 'profilprediction/profile.html', {'form': form})
-
-class CustomConnexion(LoginView):
-    #template_name = "profilprediction/login.html"
-    pass
 
 def calculate_prime(age, bmi, sex, children, smoker, region):
     """
@@ -121,6 +121,12 @@ def calculate_prime(age, bmi, sex, children, smoker, region):
 @login_required
 def prediction_page(request):
     # Charge le profil utilisateur existant
+    """
+    profileprediction: Cette fonction permet de calculer la prime et de diriger
+
+    vers la page de résultats de prédiction.
+
+    """
     try:
         profile = ProfilePrediction.objects.get(user=request.user)
         form = ProfilePredictionForm(initial={
@@ -185,11 +191,14 @@ def prediction_page(request):
                     'form': form,
                     'prime': prime,
                 })
-        #return render(request, 'profilprediction/prime_resultat.html', {'prime': prime})
     return render(request, 'profilprediction/prime_simulation.html', {'form': form})
 
 @login_required
 def prediction_history(request):
+    """prediction_history: the prediction history of the user
+
+        Returns: rediriger vers la page historique
+    """
     try:
         profile = ProfilePrediction.objects.get(user=request.user)
     except ProfilePrediction.DoesNotExist:
@@ -285,3 +294,51 @@ def send_email_with_pdf(to_email, age, bmi, sex, children, smoker, region, prime
 
     # Envoyer l'e-mail
     email.send()
+
+@login_required
+def developer_dashboard(request):
+    
+    """
+    Page dédiée aux développeurs, listant toutes les fonctionnalités de l'application.
+    Accessible uniquement aux administrateurs et développeurs.
+    """
+    #if not request.user.is_staff:  # Vérifie si l'utilisateur est un développeur/admin
+    #    return redirect('home')  # Redirige l'utilisateur vers la page d'accueil s'il n'est pas développeur
+
+    # Liste des fonctionnalités
+    features = [
+        {
+            "name": "profileprediction",
+            "description": "Permet de charger le formulaire de prédiction et de rediriger l'utilisateur après soumission.",
+        },
+        {
+            "name": "calculate_prime",
+            "description": "Calcule la prime d'assurance en fonction des données fournies.",
+        },
+        {
+            "name": "prediction_page",
+            "description": "Affiche la page de simulation des primes avec les résultats.",
+        },
+        {
+            "name": "prediction_history",
+            "description": "Affiche l'historique des prédictions d'un utilisateur.",
+        },
+        {
+            "name": "transform_input_data",
+            "description": "Transforme les données brutes d'entrée pour les rendre compatibles avec la prédiction.",
+        },
+        {
+            "name": "generate_pdf",
+            "description": "Génère un fichier PDF contenant les détails d'une simulation.",
+        },
+        {
+            "name": "view_pdf",
+            "description": "Affiche un fichier PDF généré pour prévisualisation ou téléchargement.",
+        },
+        {
+            "name": "send_email_with_pdf",
+            "description": "Envoie un e-mail avec la simulation en pièce jointe au format PDF.",
+        },
+    ]
+
+    return render(request, 'profilprediction/developer_dashboard_.html', {'features': features})
