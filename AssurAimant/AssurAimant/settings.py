@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'tailwind', 
+    'tailwind',
+    'calendier',
     'theme', 
     'django_browser_reload',  
     'authentification',   # TO DELETE

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="color: black;">Choisiez une date pour un rendez vous</h1>
+
+    <body>
+        <div>        
+            <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="soumettre">Submit</button>
+        </form>
+    </div>
+    </body>
+{% endblock %}
