@@ -43,10 +43,11 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password2'].help_text = None
 
     def save(self, commit=True):
-        user = super().save(commit=False)
+        user = super().save(commit=True)
         user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.password1 = self.cleaned_data["password1"]
         if commit:
             user.save()
         return user
