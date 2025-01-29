@@ -6,9 +6,11 @@ from django.shortcuts import render, redirect
 
 from .forms import ProfilePredictionForm
 from .models import ProfilePrediction, Prediction
-
+from django.contrib import messages
 from django.core.mail import EmailMessage
-
+from fpdf import FPDF
+from django.http import FileResponse
+import os
 from .utils import load_model
 
 # Chargez le modèle au démarrage
@@ -183,6 +185,7 @@ def prediction_page(request):
                 email = user.email  # "destinataire@gmail.com"
                 print(email)
                 send_email_with_pdf(email, age, bmi, sex, children, smoker, region, prime)
+                messages.success(request, "Votre email a été envoyé avec succès.")
                 #generate_mail_link(request)
 
             else:
@@ -227,10 +230,6 @@ def transform_input_data(data):
 
     # Retourner les valeurs transformées
     return age, bmi, sex, children, smoker, region
-
-from fpdf import FPDF
-from django.http import FileResponse
-import os
 
 def generate_pdf(age, bmi, sex, children, smoker, region, prime):
     """
@@ -294,6 +293,7 @@ def send_email_with_pdf(to_email, age, bmi, sex, children, smoker, region, prime
 
     # Envoyer l'e-mail
     email.send()
+    
 
 @login_required
 def developer_dashboard(request):

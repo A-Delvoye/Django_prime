@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class CustomUserCreationForm(UserCreationForm):
+    """
+        UserCreationForm (_type_): a form to create a new user
+    """
     email = forms.EmailField(required=True, label="Adresse e-mail")
     first_name = forms.CharField(max_length=30, required=True, label="Prénom")
     last_name = forms.CharField(max_length=30, required=True, label="Nom de famille")
