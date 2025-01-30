@@ -12,8 +12,14 @@ REGION_CHOICES = [
     ('Southwest', 'Southwest'),
 ]
 
-class ProfilePredictionForm(forms.Form):
 
+class ProfilePredictionForm(forms.Form):
+    """ProfilePredictionForm: A form for user to input their profile information.
+
+    Attributs:
+        age, bmi, sex, region: The fields for user to input their profile information.
+
+    """
 
     age = forms.IntegerField(
         label="Âge",
@@ -53,18 +59,30 @@ class ProfilePredictionForm(forms.Form):
     )
 
     def clean_age(self):
+        """clean_age: Validate the age field.
+
+        Returns: The cleaned age value.
+        """
         age = self.cleaned_data.get('age')
         if age < 18:
             raise ValidationError("L'âge doit être supérieur ou égal à 18 ans.")
         return age
 
     def clean_bmi(self):
+        """clean_bmi : Validate the BMI field.
+
+        Returns: bmi - The cleaned BMI value.
+        """
         bmi = self.cleaned_data.get('bmi')
         if bmi < 10 or bmi > 60:
             raise ValidationError("Le BMI doit être compris entre 10 et 60.")
         return bmi
 
     def clean_children(self):
+        """clean_children: Validate the children field.
+        
+        Returns: children - The cleaned children value.
+        """
         children = self.cleaned_data.get('children')
         if children < 0:
             raise ValidationError("Le nombre d'enfants ne peut pas être négatif.")
