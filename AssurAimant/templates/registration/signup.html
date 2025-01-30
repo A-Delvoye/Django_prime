@@ -4,7 +4,7 @@
 
 {% block content %}
 
- <div class="flex items-center justify-center min-h-screen bg-gray-100">
+ <div class="flex items-center justify-center min-h-screen bg-white">
   <div class="bg-white p-8 rounded shadow-lg w-full max-w-sm">
     <h1 class="text-3xl font-bold text-center text-blue-200 mb-6">Inscription</h1>
     <form method="post" class="space-y-4">
@@ -25,16 +25,16 @@
         <input type="text" id="id_first_name" name="first_name" class="form-input w-full mt-1">
       </div>
 
-      <!-- email -->
-      <div>
-        <label for="id_email" class="block text-sm font-medium text-gray-700">E-mail</label>
-        <input type="text" id="id_email" name="email" class="form-input w-full mt-1">
-      </div>
-
       <!-- Nom de famille -->
       <div>
         <label for="id_last_name" class="block text-sm font-medium text-gray-700">Nom de famille</label>
         <input type="text" id="id_last_name" name="last_name" class="form-input w-full mt-1">
+      </div>
+
+      <!-- email -->
+      <div>
+        <label for="id_email" class="block text-sm font-medium text-gray-700">E-mail</label>
+        <input type="text" id="id_email" name="email" class="form-input w-full mt-1">
       </div>
 
       <!-- Mot de passe -->
