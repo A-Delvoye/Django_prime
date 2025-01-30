@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <!-- Titre de la page -->
+    <h1 class="text-4xl font-bold mb-4 text-center text-purple-700">Historique des Prédictions</h1>
+
+    </br>
+    <!-- Message d'introduction 
+    <p class="mb-6 text-center">Voici l'historique des primes calculées pour {{ profile.user.username }} :</p>
+    -->
+    <!-- Tableau d'historique -->
+    <div class="overflow-x-auto">
+        <table class="table-auto border-collapse border border-gray-300 w-full mb-6">
+            <thead>
+                <tr class="bg-gray-200 text-left">
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Nom du Client</th>
+                    <th class="border border-gray-300 px-4 py-2">Prime (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediction in predictions %}
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2">{{ forloop.counter }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ prediction.date_created }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ prediction.profile.user.username }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ prediction.prime|floatformat:2 }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">Aucune prédiction trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="flex justify-center space-x-4">
+        <!-- Bouton Nouvelle Simulation -->
+        <a href="{% url 'prediction_page' %}" 
+           class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 shadow-md transition duration-200">
+            Nouvelle Simulation
+        </a>
+
+        <!-- Bouton Annuler -->
+        <a href="{% url 'home' %}" 
+           class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-700 shadow-md transition duration-200">
+            Annuler
+        </a>
+    </div>
+</div>
+{% endblock %}

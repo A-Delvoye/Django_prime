@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+
+{% block content %}
+<body>
+    {% if messages %}
+    <div id="success-message" class="fixed top-4 right-4 bg-blue-500 text-white py-2 px-4 rounded shadow-md transition-opacity duration-500">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+<div class="container">
+    <form method="post" class="space-y-6 bg-white p-6 rounded-md shadow-md max-w-lg mx-auto">
+    {% csrf_token %}
+        <div><br>
+            <label for="{{ form.age.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                {{ form.age.label }}
+            </label>
+            {{ form.age }}
+            {% if form.age.errors %}
+                <p class="text-red-500 text-sm">{{ form.age.errors|first }}</p>
+            {% endif %}
+        </div>
+
+        <div><br>
+            <label for="{{ form.bmi.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                {{ form.bmi.label }}
+            </label>
+            {{ form.bmi }}
+            {% if form.bmi.errors %}
+                <p class="text-red-500 text-sm">{{ form.bmi.errors|first }}</p>
+            {% endif %}
+        </div>
+
+        <div><br>
+            <label for="{{ form.children.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                {{ form.children.label }}
+            </label>
+            {{ form.children }}
+            {% if form.children.errors %}
+                <p class="text-red-500 text-sm">{{ form.children.errors|first }}</p>
+            {% endif %}
+        </div>
+
+        <div><br>
+            <fieldset>
+                <legend class="block text-sm font-bold text-gray-700">{{ form.sex.label }}</legend>
+                <div class="flex items-center space-x-4 mt-2">
+                    {% for radio in form.sex %}
+                        <label class="inline-flex items-center">
+                            {{ radio.tag }}
+                            <span class="ml-2 text-sm">{{ radio.choice_label }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            {% if form.sex.errors %}
+                <p class="text-red-500 text-sm">{{ form.sex.errors|first }}</p>
+            {% endif %}
+        </div>
+
+        <div><br>
+            <fieldset>
+                <legend class="block text-sm font-bold text-gray-700">{{ form.smoker.label }}</legend>
+                <div class="flex items-center space-x-4 mt-2">
+                    {% for radio in form.smoker %}
+                        <label class="inline-flex items-center">
+                            {{ radio.tag }}
+                            <span class="ml-2 text-sm">{{ radio.choice_label }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            {% if form.smoker.errors %}
+                <p class="text-red-500 text-sm">{{ form.smoker.errors|first }}</p>
+            {% endif %}
+        </div>
+        
+        <div><br>
+            <label for="{{ form.region.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                {{ form.region.label }}
+            </label>
+            {{ form.region }}
+            {% if form.region.errors %}
+                <p class="text-red-500 text-sm">{{ form.region.errors|first }}</p>
+            {% endif %}
+        </div><br>
+
+        <!-- Afficher la prime avant les boutons -->
+        
+        <div class="flex justify-center mt-6 border-2 border-black p-4 rounded-md">
+            {% if prime %}
+            <h3 class="text-xl font-bold">
+                Prime Calculée : {{ prime|floatformat:2 }} €
+            </h3>
+            {% endif %}
+        </div>
+   
+        
+        <!-- Section des boutons -->
+        <div class="flex justify-center space-x-4 mt-12">
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-800">Calculer la prime</button>
+            <button type="submit" name="generer" value="true" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-800">
+                PDF
+            </button>
+            <button type="submit" name="envoyer e-mail" value="true" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-800">
+                Envoi e-mail
+            </button>
+            <a href="/" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-red-700 text-center block">
+                Annuler
+            </a>
+        </div><br>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const successMessage = document.getElementById("success-message");
+        if (successMessage) {
+            setTimeout(() => {
+                successMessage.classList.add("opacity-0"); // Ajoute une transition en douceur
+                setTimeout(() => {
+                    successMessage.style.display = "none"; // Cache complètement l'élément
+                }, 500);
+            }, 5000);
+        }
+    });
+</script>
+
+</body>
+{% endblock content %}

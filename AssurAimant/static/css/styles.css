@@ -1,0 +1,49 @@
+ul.test{
+    background-color: brown;
+}
+a.test{
+    background-color: forestgreen;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: green;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: yellow;
+    color: black;
+  }
+  
+  .inline{
+    display : inline;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Cela pousse le footer vers le bas */
+}
+
+footer {
+    background-color: #1a1a1a; /* Couleur personnalisée */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}

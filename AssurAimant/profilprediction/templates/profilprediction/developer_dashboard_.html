@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-6 text-violet-700">Tableau de bord des Développeurs</h1>
+    <p class="text-center text-gray-600 mb-8">
+        Liste des fonctionnalités disponibles dans l'application avec leurs descriptions détaillées.
+    </p>
+
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="border border-gray-300 px-4 py-2 text-left">Nom de la Méthode</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feature in features %}
+                <tr class="hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2 font-bold">{{ feature.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ feature.description }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center text-gray-500 py-4">
+                        Aucune fonctionnalité disponible.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="{% url 'home' %}" class="btn bg-gray-500 text-white px-4 py-2 rounded shadow">Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}
