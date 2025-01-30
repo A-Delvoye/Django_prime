@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 class Rendezvous(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile")
-    conseiller = models.OneToOneField(User, on_delete=models.CASCADE, related_name="conseiller_profile")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_rendezvous")
+    conseiller_id = models.ForeignKey(User, on_delete=models.CASCADE)
     jour = models.PositiveIntegerField(default = 1)
     mois = models.PositiveIntegerField(default = 1)
     annee = models.PositiveIntegerField(default = 2025)

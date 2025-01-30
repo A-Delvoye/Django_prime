@@ -18,12 +18,12 @@ def calendar_view(request):
         day = selected_date.day
         month = selected_date.month
         year = selected_date.year
-        list_consultant = User.objects.filter(is_conseiller=1)
-        not_available = Rendezvous.objects.filter(jour=day, mois=month, annee=year).values_list(conseiller)
-        person_disp = set(list_consultant) - set(not_available)
-        if person_disp != {}:
+        list_consultant = User.objects.filter(is_staff=1).values_list('id')
+        not_available = Rendezvous.objects.filter(jour=day, mois=month, annee=year).values_list('id')
+        person_disp = list(set(list_consultant) - set(not_available))
+        if len(person_disp) != 0:
             user_rendezvous= Rendezvous.objects.get(user = request.user)
-            user_rendezvous.conseiller= list(person_disp[0])
+            user_rendezvous.conseiller_id= list(person_disp[0])
             user_rendezvous.jour = day
             user_rendezvous.mois = month
             user_rendezvous.annee = year
