@@ -11,4 +11,5 @@ AssurAimant/theme/
 AssurAimant/profilprediction/migrations
 AssurAimant/theme/static_src/node_modules/
 AssurAimant/db.sqlite3
+ AssurAimant/calendier/migrations/
 
