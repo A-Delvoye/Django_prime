@@ -202,12 +202,21 @@ def prediction_history(request):
 
         Returns: rediriger vers la page historique
     """
+    search_query = request.GET.get('q', '').strip()  # Récupère et nettoie la recherch
+
     try:
         profile = ProfilePrediction.objects.get(user=request.user)
     except ProfilePrediction.DoesNotExist:
         return redirect('profileprediction')  # Redirige si aucun profil n'existe
 
-    predictions = profile.predictions.all()  # Récupère toutes les prédictions associées au profil
+    if request.user.is_staff:
+        predictions = Prediction.objects.all()  # Récupère toutes les prédictions de tous les profils
+    else:
+        predictions = profile.predictions.all()
+    
+    if search_query:
+            predictions = predictions.filter(profile__user__username__icontains=search_query)
+    
     return render(request, 'profilprediction/historique.html', {'profile': profile, 'predictions': predictions})
 
 
