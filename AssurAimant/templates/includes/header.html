@@ -11,9 +11,12 @@
     
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/">Simulation</a>
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/history/">Historique</a>
-    <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/dashboard/">Documentation</a>
+    {% comment %} <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/dashboard/">Documentation</a> {% endcomment %}
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/rendezvous/">Rendez Vous</a>
     <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/">{{ user.username }}</a>
+   
+      {% comment %} {% if user.username == 'CEO'%} {% endcomment %}
+      <a class="mr-5 text-lg font-bold hover:text-gray-400" href="/profil/prediction/dashboard/">Documentation</a>
 
     <form method="POST" action="{% url 'logout' %}">
       {% csrf_token %}

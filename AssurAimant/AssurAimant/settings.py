@@ -156,8 +156,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Exemple pour Gmail
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'wael.bensoltana@gmail.com'  # Remplacez par votre adresse email
-EMAIL_HOST_PASSWORD = 'piuo zzgp kxdy aklr'# Remplacez par votre mot de passe
-
+EMAIL_HOST_PASSWORD = 'cvpi bzbe elrl xnds'# Remplacez par votre mot de passe
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

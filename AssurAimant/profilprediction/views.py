@@ -302,8 +302,8 @@ def developer_dashboard(request):
     Page dédiée aux développeurs, listant toutes les fonctionnalités de l'application.
     Accessible uniquement aux administrateurs et développeurs.
     """
-    #if not request.user.is_staff:  # Vérifie si l'utilisateur est un développeur/admin
-    #    return redirect('home')  # Redirige l'utilisateur vers la page d'accueil s'il n'est pas développeur
+    if not request.user.is_staff:  # Vérifie si l'utilisateur est un développeur/admin
+       return redirect('home')  # Redirige l'utilisateur vers la page d'accueil s'il n'est pas développeur
 
     # Liste des fonctionnalités
     features = [
