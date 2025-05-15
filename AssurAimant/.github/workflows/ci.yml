@@ -3,7 +3,7 @@ name: Python CI
 
 on:
   push:
-    branches: [ main, develop, gauthier ] # Uniquement sur push vers main ou develop
+    branches: [ main, develop, gauthier] # Uniquement sur push vers main ou develop
   pull_request:
     branches: [ main ]       # Uniquement sur PR ciblant main
 
@@ -26,6 +26,7 @@ jobs:
             pip install pytest
             # Si vous avez un fichier requirements.txt:
             pip install -r requirements.txt
+            echo requirements installés ~~~~~~~~~~~~~~~~
 
         - name: Run tests with pytest
           run: pytest
