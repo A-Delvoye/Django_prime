@@ -1,2 +1,11 @@
 django
 django-tailwind
+python-dotenv
+pandas
+numpy
+django-browser-reload
+fpdf
+cloudpickle
+scikit-learn
+whitenoise
+pytest
