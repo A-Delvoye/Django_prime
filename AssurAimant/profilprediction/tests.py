@@ -27,3 +27,4 @@
 #         self.assertIsInstance(self.profilepredict, ProfilePrediction)
 #         self.assertEqual(self.profilepredict.bmi, 5)
 #         self.assertGreaterEqual(self.profilepredict.bmi, 4)
+
