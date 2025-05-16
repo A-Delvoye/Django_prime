@@ -16,8 +16,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t appliwaelantoine:latest .
+          docker build -t appliwaelantoine222:latest .
 
       - name: Run tests with pytest inside Docker
         run: |
-          docker run --rm appliwaelantoine:latest pytest
+          docker run --rm appliwaelantoine222:latest pytest
