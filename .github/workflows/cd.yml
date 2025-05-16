@@ -20,4 +20,4 @@ jobs:
 
       - name: Run tests with pytest inside Docker
         run: |
-          docker run --rm appliwaelantoine222:latest pytest
+          docker run --rm appliwaelantoine222:latest pytest AssurAimant/
