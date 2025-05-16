@@ -23,7 +23,6 @@ jobs:
         - name: Install depedencies
           run: | # Permet d'exécuter plusieurs commandes
             python -m pip install --upgrade pip
-            pip install pytest
             # Si vous avez un fichier requirements.txt:
             pip install -r requirements.txt
             echo requirements installés ~~~~~~~~~~~~~~~~
