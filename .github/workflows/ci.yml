@@ -28,7 +28,7 @@ jobs:
             echo requirements installés ~~~~~~~~~~~~~~~~
 
         - name: Run tests with pytest
-          run: pytest
+          run: pytest AssurAimant/
 
   call-deployment:
     name: Deploy on docker
