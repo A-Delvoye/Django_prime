@@ -9,3 +9,4 @@ cloudpickle
 scikit-learn
 whitenoise
 pytest
+pytest-django
